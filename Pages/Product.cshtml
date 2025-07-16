@@ -1,0 +1,16 @@
+﻿@page
+@model TestRazorApp.Pages.ProductModel
+@{
+	ViewData["Title"] = "Product Details";
+}
+
+<h1>Product for @Model.CustomerID</h1>
+
+<div>
+    <h2>@Model.ProductName</h2>
+    <p>@Model.ProductDescription</p>
+</div>
+
+<p>
+    <a asp-page="Index">Back to Customer Selection</a>
+</p>

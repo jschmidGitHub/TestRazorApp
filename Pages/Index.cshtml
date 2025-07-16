@@ -1,0 +1,18 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<h1>Select A Customer</h1>
+<form id="customerForm" asp-page="ProductModel" method="GET">
+    <select id="customerID" name="customerID">
+        <option value="">Select here...</option>
+        <option value="0">Elon Musk</option>
+        <option value="1">Jeff Bezos</option>
+        <option value="2">Mark Zuckerberg</option>
+        <option value="3">Larry Ellison</option>
+    </select>
+    <br><br>
+    <input id='submitButton' type="submit" value="Show Product" disabled>
+</form>
