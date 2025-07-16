@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const customerName = selectElement.options[selectElement.selectedIndex].text;
 
         // Construct URL with customerID and customerName parameters
-        const url = `http://localhost:5238/?customerID=${customerID}&customerName=${encodeURIComponent(customerName)}`;
+        const url = `http://localhost:5238/Product?customerID=${customerID}&customerName=${encodeURIComponent(customerName)}`;
 
         // Redirect browser to the new URL
         window.location.href = url;
