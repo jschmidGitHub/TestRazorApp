@@ -7,47 +7,44 @@ namespace TestRazorApp.Pages
     {
         // Property to hold the Customer ID received from the query string
         [BindProperty(SupportsGet = true)] // This attribute is essential for binding GET request data
-        public int CustomerID { get; set; }
+        public int ID { get; set; }
 
-        [BindProperty(SupportsGet = true)]
-        public string CustomerName { get; set; }
+        public required string Name { get; set; }
 
-        // Property to hold the product information you'll display
-        public string ProductName { get; set; }
-        public string ProductDescription { get; set; }
+        public required string Product { get; set; }
         
 
         public void OnGet()
         {
-            // The CustomerID will be automatically populated by model binding
+            // The ID will be automatically populated by model binding
             // because of [BindProperty(SupportsGet = true)] and the query parameter name matches.
 
-            switch (CustomerID)
+            switch (ID)
             {
                 case 0:
-                    ProductName = "SpaceX Starship";
-                    ProductDescription = "Reusable spacecraft for deep-space exploration.";
-                    CustomerName = "Elon Musk";
+                    Name = "SpaceX Starship";
+                    Product = "Reusable spacecraft for deep-space exploration.";
+                    Name = "Elon Musk";
                     break;
                 case 1: 
-                    ProductName = "Blue Origin New Glenn";
-                    ProductDescription = "Heavy-lift orbital launch vehicle.";
-                    CustomerName = "Jeff Bezos";
+                    Name = "Blue Origin New Glenn";
+                    Product = "Heavy-lift orbital launch vehicle.";
+                    Name = "Jeff Bezos";
                     break;
                 case 2:
-                    ProductName = "Meta Quest 3";
-                    ProductDescription = "Mixed reality headset for immersive experiences.";
-                    CustomerName = "Mark Zuckerberg";
+                    Name = "Meta Quest 3";
+                    Product = "Mixed reality headset for immersive experiences.";
+                    Name = "Mark Zuckerberg";
                     break;
                 case 3:
-                    ProductName = "Oracle Autonomous Database";
-                    ProductDescription = "Self-driving, self-securing, self-repairing database service.";
-                    CustomerName = "Larry Ellison";
+                    Name = "Oracle Autonomous Database";
+                    Product = "Self-driving, self-securing, self-repairing database service.";
+                    Name = "Larry Ellison";
                     break;
                 default:
-                    ProductName = "Unknown Product";
-                    ProductDescription = "Please select a valid customer.";
-                    CustomerName = "None";
+                    Name = "Unknown Product";
+                    Product = "Please select a valid customer.";
+                    Name = "None";
                     break;
             }
 
