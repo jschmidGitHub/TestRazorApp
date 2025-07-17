@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using TestRazorApp.Models;
 
 namespace TestRazorApp.Pages
@@ -28,8 +29,10 @@ namespace TestRazorApp.Pages
             // The ID will be automatically populated by model binding
             // because of [BindProperty(SupportsGet = true)] and the query parameter name matches.
 
-            // Query the database for the product of the selected customer
-            var customer = _context.Customers.FirstOrDefault(p => p.ID == ID);
+            // Query the database to get the selected customer
+            var customer = _context.Customers.FromSqlRaw("SELECT * FROM Customers WHERE ID = {0}", ID)
+                                                .AsEnumerable()
+                                                .SingleOrDefault();
 
             if (customer != null)
             {
