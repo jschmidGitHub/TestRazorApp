@@ -9,7 +9,6 @@ namespace TestRazorApp.Models
 
         public AppDBContext(DbContextOptions<AppDBContext> options) : base(options)
         {
-
         }
     }
 }

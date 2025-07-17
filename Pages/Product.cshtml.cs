@@ -1,10 +1,19 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using TestRazorApp.Models;
 
 namespace TestRazorApp.Pages
 {
     public class ProductModel : PageModel
     {
+
+        private readonly AppDBContext _context;
+
+        public ProductModel(AppDBContext context)
+        {
+            _context = context;
+        }
+
         // Property to hold the Customer ID received from the query string
         [BindProperty(SupportsGet = true)] // This attribute is essential for binding GET request data
         public int ID { get; set; }
@@ -19,33 +28,18 @@ namespace TestRazorApp.Pages
             // The ID will be automatically populated by model binding
             // because of [BindProperty(SupportsGet = true)] and the query parameter name matches.
 
-            switch (ID)
+            // Query the database for the product of the selected customer
+            var customer = _context.Customers.FirstOrDefault(p => p.ID == ID);
+
+            if (customer != null)
             {
-                case 0:
-                    Name = "SpaceX Starship";
-                    Product = "Reusable spacecraft for deep-space exploration.";
-                    Name = "Elon Musk";
-                    break;
-                case 1: 
-                    Name = "Blue Origin New Glenn";
-                    Product = "Heavy-lift orbital launch vehicle.";
-                    Name = "Jeff Bezos";
-                    break;
-                case 2:
-                    Name = "Meta Quest 3";
-                    Product = "Mixed reality headset for immersive experiences.";
-                    Name = "Mark Zuckerberg";
-                    break;
-                case 3:
-                    Name = "Oracle Autonomous Database";
-                    Product = "Self-driving, self-securing, self-repairing database service.";
-                    Name = "Larry Ellison";
-                    break;
-                default:
-                    Name = "Unknown Product";
-                    Product = "Please select a valid customer.";
-                    Name = "None";
-                    break;
+                Name = customer.Name;
+                Product = customer.Product;
+            }
+            else
+            {
+                Name = "Unknown Product";
+                Product = "Please select a valid customer.";
             }
 
             // Once the properties are set, the Razor Page will be rendered.

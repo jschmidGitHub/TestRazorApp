@@ -1,10 +1,14 @@
+using Microsoft.EntityFrameworkCore;
 using TestRazorApp.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-//builder.Services.AddDbContext<AppDBContext>
+
+// Configure SQLite connection
+builder.Services.AddDbContext<AppDBContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("AppDB")));
 
 var app = builder.Build();
 
