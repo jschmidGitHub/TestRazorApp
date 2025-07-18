@@ -22,6 +22,11 @@ namespace TestRazorApp.Pages
 
         public List<Product> Products;
 
+        public Product getClickedProduct(int productID)
+        {
+            return Products[productID];
+        }
+
         public async Task<IActionResult> OnGetAsync() // Changed return type to IActionResult for NotFound()
         {
             // --- Fetch Customer Name using Raw SQL ---

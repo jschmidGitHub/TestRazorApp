@@ -5,16 +5,24 @@
 }
 
 <table>
-<thead>Products:</thead>
-<ul>
-    @foreach (var product in Model.Products)
-    {
-        <tr>
-            <td> @product.Name </td>
-        </tr>
-    }
-</ul>
+	<thead>Products:</thead>
+		@foreach (var product in Model.Products)
+		{
+		<tr>
+			<td> @product.Name </td>
+		</tr>
+		}
 </table>
+
+<br>
+<div id="productDetailItem" style="visibility: hidden;">
+	<h2>Product Detail:</h2>
+	<br>
+	<ul>
+		<li>Description: Blah, blah blah.</li>
+		<li>Price: $30.00</li>
+	</ul>
+</div>
 
 <br>    
 <p>
