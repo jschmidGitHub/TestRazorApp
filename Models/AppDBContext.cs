@@ -6,6 +6,7 @@ namespace TestRazorApp.Models
     public class AppDBContext : DbContext
     {
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Product> Products { get; set; }
 
         public AppDBContext(DbContextOptions<AppDBContext> options) : base(options)
         {

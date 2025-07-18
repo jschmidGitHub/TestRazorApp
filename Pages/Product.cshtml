@@ -4,14 +4,19 @@
 	ViewData["Title"] = "Product Details";
 }
 
-<h1>Product for @Model.Name</h1>
+<table>
+<thead>Products:</thead>
+<ul>
+    @foreach (var product in Model.Products)
+    {
+        <tr>
+            <td> @product.Name </td>
+        </tr>
+    }
+</ul>
+</table>
 
-<div>
-    <h2>@Model.ID</h2>
-    <h2>@Model.Name</h2>
-    <h2>@Model.Product</h2>
-</div>
-
+<br>    
 <p>
     <a asp-page="Index">Back to Customer Selection</a>
 </p>

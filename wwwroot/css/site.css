@@ -33,13 +33,22 @@ select {
     border-radius: 9px;
 }
 
+input {
+    border-radius: 9px;
+}
+
 td {
-    padding: 1cm;
-    align-self: top;
+    padding: 4px;
+    border: 1px solid;
+}
+
+tr {
+    align-self: center;
 }
 
 table {
     padding: 3cm;
+    border: 1px solid;
 }
 
 h2 {

@@ -1,7 +1,17 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿const cells = document.querySelectorAll('td'); // Get all <td> elements on the page
+for (let i = 0; i < cells.length; i++) {
+    cells[i].addEventListener('mouseover', function (event) {
+        event.target.style.backgroundColor = 'lightblue';
+    });
+    cells[i].addEventListener('mouseout', function (event) {
+        event.target.style.backgroundColor = '';
+    });
+    cells[i].addEventListener('click', function (event) {
+        const clickedCell = event.target;
+        const rowCustomerIdx = clickedCell.closest('tr').rowIndex;
+    });
+}
 
-// Write your JavaScript code.
 // Ensure DOM is fully loaded before trying to access elements
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -9,14 +19,16 @@ document.addEventListener('DOMContentLoaded', function () {
     const selectedElement = document.getElementById('customerID');
     const submitButton = document.getElementById('submitButton');
 
-    selectedElement.addEventListener('change', function () {
+    if (selectedElement != null) {
+        selectedElement.addEventListener('change', function () {
 
-        if (this.value === "") {
-            submitButton.disabled = true; // Disable if default
-        } else {
-            submitButton.disabled = false; // Enable if a valid option
-        }
-    });
+            if (this.value === "") {
+                submitButton.disabled = true; // Disable if default
+            } else {
+                submitButton.disabled = false; // Enable if a valid option
+            }
+        });
+    }
 
     customerForm.addEventListener('submit', function (event) {
 
