@@ -1,3 +1,4 @@
+using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +21,7 @@ namespace TestRazorApp.Pages
 
         public required string CustomerName { get; set; }
 
-        public List<Product> Products;
+        public List<Product>? Products;
 
         public Product getClickedProduct(int productID)
         {

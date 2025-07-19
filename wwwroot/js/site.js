@@ -9,13 +9,18 @@ for (let i = 0; i < cells.length; i++) {
     });
     cells[i].addEventListener('click', function (event) {
         const clickedCell = event.target;
-        const rowCustomerID = clickedCell.closest('tr').rowIndex;
+        const rowProductID = clickedCell.closest('tr').rowIndex;
         productDetailItem.style.visibility = 'visible';
 
-        // kick off populating the productDetailItem here...
-        // call getClickedProduct(rowCustomerID)
-    });
-}
+        fetch(`/Product?handler=api/data/${rowProductID}`)
+            .then(response => response.json())
+            .then(data => {
+                // data contains your product info
+                console.log(data);
+            })
+            .catch(error => console.error(error));
+        });
+    }
 
 // Ensure DOM is fully loaded before trying to access elements
 document.addEventListener('DOMContentLoaded', function () {
