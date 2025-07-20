@@ -23,9 +23,29 @@ namespace TestRazorApp.Pages
 
         public List<Product>? Products;
 
-        public Product getClickedProduct(int productID)
+        public JsonResult OnGetClickedProduct(int productId)
         {
-            return Products[productID];
+            var product = _context.Products
+                .FromSqlRaw("SELECT ID, CustomerID, Name, Description FROM Products WHERE ID = {0}", productId)
+                .AsNoTracking()
+                .FirstOrDefault();
+
+            if (product != null)
+            {
+                return new JsonResult(new
+                {
+                    Name = product.Name,
+                    Description = product.Description
+                });
+            }
+            else
+            {
+                return new JsonResult(new
+                {
+                    Name = "Unknown Product",
+                    Description = "No product found for this ID."
+                });
+            }
         }
 
         public async Task<IActionResult> OnGetAsync() // Changed return type to IActionResult for NotFound()
@@ -50,8 +70,8 @@ namespace TestRazorApp.Pages
 
             // --- Fetch Products using Raw SQL ---
             Products = await _context.Products
-                                     .FromSqlRaw("SELECT ID, CustomerID, Name FROM Products WHERE CustomerID = {0}", ID)
-                                     .AsNoTracking() // Optional: Prevents tracking if you only need read access
+                                     .FromSqlRaw("SELECT ID, CustomerID, Name, Description FROM Products WHERE CustomerID = {0}", ID)
+                                     .AsNoTracking() // Prevent tracking if you only need read access
                                      .ToListAsync(); // Materializes all results into a list
 
             // Once the properties are set, the Razor Page will be rendered.

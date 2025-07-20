@@ -1,5 +1,9 @@
 ﻿const cells = document.querySelectorAll('td'); // Get all <td> elements on the page
-const productDetailItem = document.getElementById('productDetailItem');
+const infoDiv = document.getElementById('productInfo');
+const detailNameSpan = document.getElementById('detailName');
+const detailDescriptionSpan = document.getElementById('detailDescription');
+//const detailPriceSpan = document.getElementById('detailPrice');
+
 for (let i = 0; i < cells.length; i++) {
     cells[i].addEventListener('mouseover', function (event) {
         event.target.style.backgroundColor = 'lightblue';
@@ -9,18 +13,23 @@ for (let i = 0; i < cells.length; i++) {
     });
     cells[i].addEventListener('click', function (event) {
         const clickedCell = event.target;
-        const rowProductID = clickedCell.closest('tr').rowIndex;
-        productDetailItem.style.visibility = 'visible';
+        const rowProductID = parseInt(clickedCell.dataset.productId, 10);
+        infoDiv.style.visibility = 'visible';
 
-        fetch(`/Product?handler=api/data/${rowProductID}`)
+        const url = `/Product?handler=ClickedProduct&productId=${rowProductID}`;
+        fetch(url)
             .then(response => response.json())
             .then(data => {
-                // data contains your product info
-                console.log(data);
-            })
-            .catch(error => console.error(error));
-        });
-    }
+                const name = data.name;
+                const description = data.description;
+                
+                //const price = data.price;
+                detailNameSpan.textContent = name;
+                detailDescriptionSpan.textContent = description;
+                //detailPriceSpan.textContent = price;
+            });
+    });
+};
 
 // Ensure DOM is fully loaded before trying to access elements
 document.addEventListener('DOMContentLoaded', function () {

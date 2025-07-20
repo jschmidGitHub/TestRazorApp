@@ -9,19 +9,16 @@
 		@foreach (var product in Model.Products)
 		{
 		<tr>
-			<td> @product.Name </td>
+			<td data-product-id="@product.ID"> @product.Name </td>
 		</tr>
 		}
 </table>
 
 <br>
-<div id="productDetailItem" style="visibility: hidden;">
+<div id="productInfo" style="border: 1px solid #ccc; padding: 15px; margin-top: 20px; visibility: hidden;">
 	<h2>Product Detail:</h2>
-	<br>
-	<ul>
-		<li>Description: Blah, blah blah.</li>
-		<li>Price: $30.00</li>
-	</ul>
+	<p>Name: <span id="detailName"></span></p>
+	<p>Description: <span id="detailDescription"></span></p>
 </div>
 
 <br>    
