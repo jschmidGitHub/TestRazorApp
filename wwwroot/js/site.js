@@ -2,7 +2,7 @@
 const infoDiv = document.getElementById('productInfo');
 const detailNameSpan = document.getElementById('detailName');
 const detailDescriptionSpan = document.getElementById('detailDescription');
-//const detailPriceSpan = document.getElementById('detailPrice');
+const detailPriceSpan = document.getElementById('detailPrice');
 
 for (let i = 0; i < cells.length; i++) {
     cells[i].addEventListener('mouseover', function (event) {
@@ -23,10 +23,10 @@ for (let i = 0; i < cells.length; i++) {
                 const name = data.name;
                 const description = data.description;
                 
-                //const price = data.price;
+                const price = data.price;
                 detailNameSpan.textContent = name;
                 detailDescriptionSpan.textContent = description;
-                //detailPriceSpan.textContent = price;
+                detailPriceSpan.textContent = price;
             });
     });
 };

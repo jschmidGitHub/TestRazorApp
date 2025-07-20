@@ -16,7 +16,7 @@ namespace TestRazorApp.Pages
         }
 
         // Property to hold the Customer ID received from the query string
-        [BindProperty(SupportsGet = true)] // This attribute binds GET request data
+        [BindProperty(SupportsGet = true)]
         public int ID { get; set; }
 
         public required string CustomerName { get; set; }
@@ -26,7 +26,7 @@ namespace TestRazorApp.Pages
         public JsonResult OnGetClickedProduct(int productId)
         {
             var product = _context.Products
-                .FromSqlRaw("SELECT ID, CustomerID, Name, Description FROM Products WHERE ID = {0}", productId)
+                .FromSqlRaw("SELECT ID, CustomerID, Name, Description, Price FROM Products WHERE ID = {0}", productId)
                 .AsNoTracking()
                 .FirstOrDefault();
 
@@ -35,7 +35,8 @@ namespace TestRazorApp.Pages
                 return new JsonResult(new
                 {
                     Name = product.Name,
-                    Description = product.Description
+                    Description = product.Description,
+                    Price = product.Price
                 });
             }
             else
@@ -43,16 +44,14 @@ namespace TestRazorApp.Pages
                 return new JsonResult(new
                 {
                     Name = "Unknown Product",
-                    Description = "No product found for this ID."
+                    Description = "No product found for this ID.",
+                    Price = 0.0
                 });
             }
         }
 
         public async Task<IActionResult> OnGetAsync() // Changed return type to IActionResult for NotFound()
         {
-            // --- Fetch Customer Name using Raw SQL ---
-            // Note: Use FromSqlRaw with caution. Parameterization is crucial for security.
-            // The {0} syntax is used for parameters and is handled by EF Core for safety.
             var customer = await _context.Customers
                                          .FromSqlRaw("SELECT ID, Name FROM Customers WHERE ID = {0}", ID)
                                          .AsNoTracking() // Optional: Prevents tracking if you only need read access
@@ -60,22 +59,18 @@ namespace TestRazorApp.Pages
 
             if (customer == null)
             {
-                // Handle case where customer is not found
                 CustomerName = "Customer Not Found";
-                // Optionally, redirect to an error page or the index page
                 return NotFound(); // Returns a 404 Not Found result
             }
 
             CustomerName = customer.Name;
-
-            // --- Fetch Products using Raw SQL ---
             Products = await _context.Products
-                                     .FromSqlRaw("SELECT ID, CustomerID, Name, Description FROM Products WHERE CustomerID = {0}", ID)
-                                     .AsNoTracking() // Prevent tracking if you only need read access
+                                     .FromSqlRaw("SELECT ID, CustomerID, Name, Description, Price FROM Products WHERE CustomerID = {0}", ID)
+                                     .AsNoTracking()
                                      .ToListAsync(); // Materializes all results into a list
 
             // Once the properties are set, the Razor Page will be rendered.
-            return Page(); // Returns the current Razor Page
+            return Page();
         }
     }
 }
