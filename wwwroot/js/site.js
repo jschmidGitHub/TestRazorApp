@@ -1,20 +1,20 @@
-﻿const cells = document.querySelectorAll('td'); // Get all <td> elements on the page
-const infoDiv = document.getElementById('productInfo');
+﻿const tdCells = document.querySelectorAll('td'); // Get all <td> elements on the page
+const productDetailDiv = document.getElementById('productInfo');
 const detailNameSpan = document.getElementById('detailName');
 const detailDescriptionSpan = document.getElementById('detailDescription');
 const detailPriceSpan = document.getElementById('detailPrice');
 
-for (let i = 0; i < cells.length; i++) {
-    cells[i].addEventListener('mouseover', function (event) {
+for (let i = 0; i < tdCells.length; i++) {
+    tdCells[i].addEventListener('mouseover', function (event) {
         event.target.style.backgroundColor = 'lightblue';
     });
-    cells[i].addEventListener('mouseout', function (event) {
+    tdCells[i].addEventListener('mouseout', function (event) {
         event.target.style.backgroundColor = '';
     });
-    cells[i].addEventListener('click', function (event) {
+    tdCells[i].addEventListener('click', function (event) {
         const clickedCell = event.target;
         const rowProductID = parseInt(clickedCell.dataset.productId, 10);
-        infoDiv.style.visibility = 'visible';
+        productDetailDiv.style.visibility = 'visible';
 
         const url = `/Product?handler=ClickedProduct&productId=${rowProductID}`;
         fetch(url)
@@ -22,8 +22,8 @@ for (let i = 0; i < cells.length; i++) {
             .then(data => {
                 const name = data.name;
                 const description = data.description;
-                
                 const price = data.price;
+
                 detailNameSpan.textContent = name;
                 detailDescriptionSpan.textContent = description;
                 detailPriceSpan.textContent = price;
@@ -54,10 +54,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const selectElement = document.getElementById('customerID');
         const ID = selectElement.value;
 
-        // Construct URL with ID
+        // Construct URL with ID and go
         const url = `http://localhost:5238/Product?ID=${ID}`;
-
-        // Redirect browser to the new URL
         window.location.href = url;
     });
 });
