@@ -50,7 +50,7 @@ namespace TestRazorApp.Pages
             }
         }
 
-        public async Task<IActionResult> OnGetAsync() // Changed return type to IActionResult for NotFound()
+        public async Task<IActionResult> OnGetAsync()
         {
             var customer = await _context.Customers
                                          .FromSqlRaw("SELECT ID, Name FROM Customers WHERE ID = {0}", ID)

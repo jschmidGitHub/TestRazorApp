@@ -10,8 +10,11 @@ namespace TestRazorApp.Pages
     {
         private readonly AppDBContext _context;
         private readonly ILogger<IndexModel> _logger;
-        public List<Customer> Customers { get; set; }
 
+        // Property to hold the new Customer's Name received from the query string
+        [BindProperty(SupportsGet = true)]
+        public string Name { get; set; }
+        public List<Customer> Customers { get; set; }
 
         public IndexModel(ILogger<IndexModel> logger, AppDBContext context)
         {
@@ -19,10 +22,27 @@ namespace TestRazorApp.Pages
             _logger = logger;
         }
 
-        public void OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
-            // Get all customers from the database
+            _logger.Log(LogLevel.Information, "Got to GET async.");
+            if((Name != null) && (Name != ""))
+            {
+                Customer newCustomer = new Customer();
+                int maxCustomerID = await _context.Customers.MaxAsync(c => (int?)c.ID) ?? 0;  // Empty table defaults 0
+                newCustomer.ID = maxCustomerID + 1;
+                newCustomer.Name = Name;
+                _context.Add<Customer>(newCustomer);
+                _context.SaveChanges();
+            }
+            else
+            {
+                _logger.Log(LogLevel.Information, "Regular GET");
+            }
+
+            // Get all customers from database
             Customers = _context.Customers.ToList();
+
+            return Page();
         }
     }
 }

@@ -4,6 +4,10 @@ const detailNameSpan = document.getElementById('detailName');
 const detailDescriptionSpan = document.getElementById('detailDescription');
 const detailPriceSpan = document.getElementById('detailPrice');
 
+const addCustomerBtn = document.getElementById('addCustomerBtn');
+const addCustomerDialog = document.getElementById('addCustomerDialog');
+const closeDialogBtn = document.getElementById('closeDialogBtn');
+
 for (let i = 0; i < tdCells.length; i++) {
     tdCells[i].addEventListener('mouseover', function (event) {
         event.target.style.backgroundColor = 'lightblue';
@@ -36,14 +40,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const customerForm = document.getElementById('customerForm');
     const selectedElement = document.getElementById('customerID');
-    const submitButton = document.getElementById('submitButton');
+    const submitCustomer = document.getElementById('submitCustomer');
     
     selectedElement.addEventListener('change', function () {
 
         if (this.value === "") {
-            submitButton.disabled = true; // Disable if default
+            submitCustomer.disabled = true; // Disable if default
         } else {
-            submitButton.disabled = false; // Enable if a valid option
+            submitCustomer.disabled = false; // Enable if a valid option
         }
     });
 
@@ -57,5 +61,12 @@ document.addEventListener('DOMContentLoaded', function () {
         // Construct URL with ID and go
         const url = `http://localhost:5238/Product?ID=${ID}`;
         window.location.href = url;
+    });
+
+    addCustomerBtn.addEventListener('click', () => {
+        addCustomerDialog.showModal(); // Opens the dialog as a modal
+    });
+    closeDialogBtn.addEventListener('click', () => {
+        addCustomerDialog.close(); // Closes the dialog
     });
 });

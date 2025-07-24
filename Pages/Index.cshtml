@@ -14,5 +14,20 @@
         }
     </select>
     <br><br>
-    <input id='submitButton' type="submit" value="Show Product" disabled>
+    <input id='submitCustomer' type="submit" value="Show Products" disabled>
 </form>
+
+<br />
+<br />
+<br />
+<button id="addCustomerBtn">Add Customer</button>
+<dialog id="addCustomerDialog">
+    <h2>Data Entry Form</h2>
+    <form id="newCustomerForm" method="GET">
+        <label for="Name">Name:</label>
+        <input type="text" id="newNameTxt" name="Name"><br><br>
+
+        <button type="submit">Submit</button>
+        <button type="button" id="closeDialogBtn">Cancel</button>
+    </form>
+</dialog>
