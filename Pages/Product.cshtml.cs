@@ -55,7 +55,7 @@ namespace TestRazorApp.Pages
             var customer = await _context.Customers
                                          .FromSqlRaw("SELECT ID, Name FROM Customers WHERE ID = {0}", ID)
                                          .AsNoTracking() // Optional: Prevents tracking if you only need read access
-                                         .FirstOrDefaultAsync(); // Materializes the first result or null
+                                         .FirstOrDefaultAsync(); // grab first result or null
 
             if (customer == null)
             {
@@ -67,7 +67,7 @@ namespace TestRazorApp.Pages
             Products = await _context.Products
                                      .FromSqlRaw("SELECT ID, CustomerID, Name, Description, Price FROM Products WHERE CustomerID = {0}", ID)
                                      .AsNoTracking()
-                                     .ToListAsync(); // Materializes all results into a list
+                                     .ToListAsync(); // grab all results into a list
 
             // Once the properties are set, the Razor Page will be rendered.
             return Page();

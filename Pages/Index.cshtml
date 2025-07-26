@@ -25,9 +25,13 @@
     <h2>Data Entry Form</h2>
     <form id="newCustomerForm" method="GET">
         <label for="Name">Name:</label>
-        <input type="text" id="newNameTxt" name="Name"><br><br>
+        <input type="text" id="newNameTxt" name="Name" shouldDelete="false"><br><br>
 
         <button type="submit">Submit</button>
         <button type="button" id="closeDialogBtn">Cancel</button>
     </form>
 </dialog>
+
+<br />
+<br />
+<button id="deleteCustomerBtn" disabled>Delete Customer</button>

@@ -41,13 +41,19 @@ document.addEventListener('DOMContentLoaded', function () {
     const customerForm = document.getElementById('customerForm');
     const selectedElement = document.getElementById('customerID');
     const submitCustomer = document.getElementById('submitCustomer');
+    const addCustomerBtn = document.getElementById('addCustomerBtn');
+    const deleteCustomerBtn = document.getElementById('deleteCustomerBtn');
     
     selectedElement.addEventListener('change', function () {
 
         if (this.value === "") {
             submitCustomer.disabled = true; // Disable if default
+            addCustomerBtn.disabled = false;
+            deleteCustomerBtn.disabled = true;
         } else {
             submitCustomer.disabled = false; // Enable if a valid option
+            addCustomerBtn.disabled = true;
+            deleteCustomerBtn.disabled = false;
         }
     });
 
@@ -68,5 +74,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     closeDialogBtn.addEventListener('click', () => {
         addCustomerDialog.close(); // Closes the dialog
+    });
+    deleteCustomerBtn.addEventListener('click', () => {
+        const selectElement = document.getElementById('customerID');
+        const ID = selectElement.value;
+        const url = `http://localhost:5238/Index?ID=${ID}&Name=Selected&ShouldDelete=true`;
+        window.location.href = url;
     });
 });
